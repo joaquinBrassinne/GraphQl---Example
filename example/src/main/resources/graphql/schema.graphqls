@@ -1,0 +1,49 @@
+type Query {            #METODOS DE SOLO LECTURA AQUI
+
+    #DELIVERY PERSON!
+    findDeliveryPersonById(deliveryPersonId:String):DeliveryPerson, #DEVUELVE LOS DATOS DEL REPARTIDOR
+    findAllDeliveryPerson:[DeliveryPerson] ##DEVUELVE TODOS LOS REPARTIDORES
+
+    #FOOD ORDER
+    findFoodOrderById(foodOrderId:String): FoodOrder,
+    findAllFoodOrder: [FoodOrder]
+}
+
+type Mutation{         #METODOS DE CREAR Y ELIMINAR AQUI
+
+    #DELIVERY PERSON!
+    createDeliveryPerson(inputDeliveryPerson:InputDeliveryPerson!):String,
+    deleteDeliveryPersonById(deliveryPersonId:String):String
+
+    #FOOD ORDER
+    createFoodOrder(inputFoodOrder: InputFoodOrder!):String
+    deleteFoodOrderById(foodOrderId:String):String
+}
+
+type DeliveryPerson{  ##CREAMOS EL OBJETO DELIVERY PERSON
+    id:ID,
+    name:String,
+    lastName: String,
+    phoneNumber:String
+}
+
+type FoodOrder{ ##CREAMOS EL OBJETO TIPO FOOD ORDER
+    id:ID,
+    customerName:String,
+    address:String,
+    totalAmount:Int,
+    deliveryPerson:DeliveryPerson
+}
+
+input InputDeliveryPerson{ ##CREAMOS EL INPUT PARA  PODER INSERTAR VALOR A LA DATA BASE
+    name:String,
+    lastName:String
+    phoneNumber:String
+}
+
+input InputFoodOrder{ ##CREAMOS EL INPUT PARA  PODER INSERTAR VALOR A LA DATA BASE
+    customerName:String,
+    address:String,
+    totalAmount:Int,
+    deliveryPersonId:String!
+}
